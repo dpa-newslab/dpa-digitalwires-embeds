@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*-
 
- Copyright 2021, 2021 dpa-IT Services GmbH
+ Copyright 2022, dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -28,4 +28,18 @@ function addScript(src){
     }
 }
 
-export {addScript};
+function getHashCode(urn) {
+    //https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+    let hash = 0,
+        i, chr;
+    if (urn.length === 0) return hash;
+    for (i = 0; i < urn.length; i++) {
+        chr = urn.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+};
+
+
+export {addScript, getHashCode};

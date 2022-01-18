@@ -1,6 +1,6 @@
 <!-- -*- coding: utf-8 -*-
 
- Copyright 2021, 2021 dpa-IT Services GmbH
+ Copyright 2022, dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,7 +15,14 @@
  limitations under the License.
 -->
 
-<!doctype html><html><head><title>Webcomponent-Test</title><meta charset="utf-8"><style>html {
+<!doctype html>
+<html>
+
+<head>
+    <title>Webcomponent-Test</title>
+    <meta charset="utf-8">
+    <style>
+        html {
             font-family: sans-serif;
         }
 
@@ -27,11 +34,51 @@
             font-size: 1.2em;
         }
 
-        main{
+        main {
             max-width: 90%;
             width: 500px;
         }
 
         dnl-youtubeembed {
             width: 100%;
-        }</style><script src="js/webcomponents/webcomponents-loader.js"></script><script defer="defer" src="js/dnl_embeds.js"></script></head><body><main><h1>Component Test</h1><section><h2>Youtube</h2><dnl-youtubeembed src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"></dnl-youtubeembed></section><section><h2>Twitter</h2><dnl-twitterembed src="https://twitter.com/jack/status/20"></dnl-twitterembed></section><section><h2>Image</h2><dnl-image title="Example image" caption="Demonstrating the capability of the dnl-image-component" alt="Example image" creditline="picsum.photos" src="https://picsum.photos/seed/picsum/1920/1080"></dnl-image></section><section><h2>Datawrapper</h2><dnl-dwchart src="https://datawrapper.dwcdn.net/4rTjn/169/"></dnl-dwchart></section><section><h2>Undefined web component (invisible)</h2><dnl-undefined src="https://twitter.com/jack/status/20"></dnl-undefined></section></main></body></html>
+        }
+    </style>
+    <script src="js/webcomponents/webcomponents-loader.js"></script>
+    <script defer="defer" src="js/dnl_embeds.js"></script>
+</head>
+
+<body>
+    <main>
+        <h1>Component Test</h1>
+        <section>
+            <h2>Youtube</h2>
+            <dnl-youtubeembed src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"></dnl-youtubeembed>
+        </section>
+        <section>
+            <h2>Twitter</h2>
+            <dnl-twitterembed src="https://twitter.com/jack/status/20"></dnl-twitterembed>
+        </section>
+        <section>
+            <h2>Image</h2>
+            <dnl-image title="Example image" caption="Demonstrating the capability of the dnl-image-component"
+                alt="Example image" creditline="picsum.photos" src="https://picsum.photos/seed/picsum/1920/1080">
+            </dnl-image>
+        </section>
+        <section>
+            <h2>Datawrapper</h2>
+            <dnl-dwchart src="https://datawrapper.dwcdn.net/4rTjn/169/"></dnl-dwchart>
+        </section>
+        <section>
+            <h2>Webgrafik</h2>
+            <dnl-wgchart
+                src="https://webgrafik.dpa-addons.com/customers/client/aws/my/html/index.html?pathSrc=aktuell/2020_10_12/autoreifen/cont&amp;nameCSS=style_1_2.css&amp;versionScript=2.2">
+            </dnl-wgchart>
+        </section>
+        <section>
+            <h2>Undefined web component (invisible)</h2>
+            <dnl-undefined src="https://twitter.com/jack/status/20"></dnl-undefined>
+        </section>
+    </main>
+</body>
+
+</html>

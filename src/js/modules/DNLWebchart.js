@@ -17,37 +17,51 @@
 
 import {DNLEmbed} from './DNLEmbed.js';
 
-//Webcomponent displaying Datawrapper-charts, inherits from DNLEmbed
-export class DNLDwChart extends DNLEmbed {
+import {getHashCode} from '../helpers.js';
+
+//Webcomponent displaying dpa-Webgrafiken
+export class DNLWebchart extends DNLEmbed {
     static get observedAttributes(){
         return ["src"];
     }
-    
+
     constructor() {
         super();
         //Change default id-prefix
-        this.idPrefix = "dwchart-";
+        this.idPrefix = "wg-";
     }
 
     setupComponent() {
+        this.iframe = document.createElement("iframe");
+
+        const {
+            shadowRoot,
+            iframe
+        } = this;
+        
+        
+        iframe.setAttribute("frameborder", "0");
+        shadowRoot.appendChild(iframe);
+
         const style = document.createElement("style");
         style.textContent = `
             :host{
-                display: flex;
+                display: block;
                 margin: 0 auto;
                 max-width: 800px;
             }
-            
             iframe{
                 border: none;
+                height: 520px;
                 width: 100%;
-            }`
-        this.shadowRoot.appendChild(style);
+            }
+        `
+        shadowRoot.appendChild(style);
 
-        this.iframe = document.createElement("iframe");
+        iframe.style="height: 1px;min-height:1px;"
+        shadowRoot.appendChild(iframe);
         
-        this.iframe.frameborder = "0";
-        this.shadowRoot.appendChild(this.iframe);
+        this.polyfill();
     }
 
     updateComponent(){
@@ -57,25 +71,23 @@ export class DNLDwChart extends DNLEmbed {
         } = this;
 
         const src = this.getAttribute("src");
-        if (!src){
-            console.error("No dw-source specified");
-            return;
+        if(!src){
+            console.error("No webchart-source specified");
         }
 
-        iframe.src = src;
-        const pathparts = new URL(src).pathname.split("/")
-        
-        let chartId = pathparts[1];
-        iframe.id = idPrefix + chartId;
+        this.origin = new URL(src).origin;
+
+        iframe.id = idPrefix + getHashCode(src);
+        iframe.src = `${src}&childId=${iframe.id}&clientHeight=1`;
     }
 
-    //Making iframe responsive
     resize(postedMessage) {
-        //Adapted method used by datawrapper-embed-script that uses a postMessage-pattern
-        if (void 0 !== postedMessage.data["datawrapper-height"]) {
-            for (var e in postedMessage.data["datawrapper-height"]) {
-                if (e == this.iframe.id.slice(this.idPrefix.length)) {
-                    this.iframe.style.height = postedMessage.data["datawrapper-height"][e] + "px";
+        //Adapted method from pym.js - listening to posted message having the elements id
+        if(postedMessage.origin == this.origin){
+            if(typeof (postedMessage.data) == "string" && "pym" == postedMessage.data.slice(0, 3)){
+                let message = postedMessage.data.split("x");
+                if (message[2] == this.iframe.id) {
+                    this.iframe.style.height = message.slice(-1) + "px"
                 }
             }
         }

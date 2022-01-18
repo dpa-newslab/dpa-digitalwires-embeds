@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*-
 
- Copyright 2021, 2021 dpa-IT Services GmbH
+ Copyright 2022, dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -32,3 +32,6 @@ defineCustomElement("dnl-twitterembed", DNLTwitterEmbed);
 
 import {DNLYoutubeEmbed} from './modules/DNLYoutubeEmbed';
 defineCustomElement("dnl-youtubeembed", DNLYoutubeEmbed);
+
+import {DNLWebchart} from './modules/DNLWebchart';
+defineCustomElement("dnl-wgchart", DNLWebchart);
