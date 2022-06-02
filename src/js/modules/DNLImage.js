@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*-
 
- Copyright 2022, dpa-IT Services GmbH
+ Copyright 2022 dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ export class DNLImage extends DNLEmbed{
     }
 
     setupComponent(){
+        this.classList.add("empty");
         this.figure = document.createElement("figure");
         this.img = document.createElement("img");
         this.figcaption = document.createElement("figcaption");
@@ -54,6 +55,10 @@ export class DNLImage extends DNLEmbed{
                 display: block;
                 margin: 0 auto;
                 max-width: 800px;
+            }
+            
+            :host(.empty){
+                display: none;
             }
 
             figure{
@@ -124,6 +129,11 @@ export class DNLImage extends DNLEmbed{
             creditline,
             figcaption
         } = this;
+
+        if(!this.getAttribute("src")){
+            this.classList.add("empty");
+            return;
+        }
         
         img.setAttribute("src", this.getAttribute("src"));
         img.setAttribute("alt", this.getAttribute("alt"));
@@ -149,6 +159,8 @@ export class DNLImage extends DNLEmbed{
 
         caption.innerHTML = this.getAttribute("caption");
         creditline.innerHTML = `Foto: ${this.getAttribute("creditline")}`;
+
+        this.classList.remove("empty");
     }
     resize(){
         //Resized by CSS
