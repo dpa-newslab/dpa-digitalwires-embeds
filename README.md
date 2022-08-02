@@ -4,6 +4,8 @@ DEMO implementation of Web Components to display multimedia content in dpa-artic
 
 **Attention: Not meant for production yet.**
 
+For examples on how to convert and show `dnl-wgchart`-elements without implementing the Web Components check [embedding-webcharts](snippets/embedding-webcharts.html).
+
 ## Building for production
 
 To build `dnl_embeds.js` for production, install dependencies via `yarn` or `npm` first. Then run `yarn build` or `npm build` to build the file. All you'll need to include to your site is `dist/dnl_embeds.js`. 
