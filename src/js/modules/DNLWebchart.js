@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*-
 
- Copyright 2022 dpa-IT Services GmbH
+ Copyright 2023 dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -78,13 +78,15 @@ export class DNLWebchart extends DNLEmbed {
         this.origin = new URL(src).origin;
 
         iframe.id = idPrefix + getHashCode(src);
-        iframe.src = `${src}&childId=${iframe.id}&clientHeight=1`;
+        iframe.src = `${src}&id=${iframe.id}&childId=${iframe.id}&clientHeight=1`;
     }
 
     resize(postedMessage) {
-        //Adapted method from pym.js - listening to posted message having the elements id
         if(postedMessage.origin == this.origin){
-            if(typeof (postedMessage.data) == "string" && "pym" == postedMessage.data.slice(0, 3)){
+            if(postedMessage.data.embed == this.iframe.id){
+                this.iframe.style.height = `${postedMessage.data.height}px`
+            }else if(typeof (postedMessage.data) == "string" && "pym" == postedMessage.data.slice(0, 3)){
+                //Adapted method from pym.js - listening to posted message having the elements id
                 let message = postedMessage.data.split("x");
                 if (message[2] == this.iframe.id) {
                     this.iframe.style.height = message.slice(-1) + "px"

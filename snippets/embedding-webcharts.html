@@ -8,12 +8,14 @@
     <iframe frameborder="0" id="webchart-1" src="https://webgrafik.dpa-addons.com/customers/client/aws/my/html/index.html?pathSrc=aktuell/2022_07_11/nordStream_1/cont&amp;nameCSS=style_1_2.css&amp;versionScript=2.7" width="100%"></iframe>
     <script>
         const iframe = document.querySelector("iframe#webchart-1");
-        iframe.setAttribute("src", `${iframe.getAttribute("src")}&childId=${iframe.getAttribute("id")}`);
+        iframe.setAttribute("src", `${iframe.getAttribute("src")}&id=${iframe.getAttribute("id")}&childId=${iframe.getAttribute("id")}`);
 
         const resize = (postedMessage) => {
             console.log(postedMessage);
             
-            if(typeof (postedMessage.data) == "string" && "pym" == postedMessage.data.slice(0, 3)){
+            if(postedMessage.data.embed == this.iframe.id){
+                this.iframe.style.height = `${postedMessage.data.height}px`
+            }else if(typeof (postedMessage.data) == "string" && "pym" == postedMessage.data.slice(0, 3)){
                 let message = postedMessage.data.split("x");
                 console.log(message)
                 if (message[2] == iframe.id) {
