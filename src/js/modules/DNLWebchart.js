@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*-
 
- Copyright 2023 dpa-IT Services GmbH
+ Copyright 2025 dpa-IT Services GmbH
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -75,10 +75,25 @@ export class DNLWebchart extends DNLEmbed {
             console.error("No webchart-source specified");
         }
 
-        this.origin = new URL(src).origin;
+        let url = new URL(src)
+        this.origin = url.origin;
 
         iframe.id = idPrefix + getHashCode(src);
-        iframe.src = `${src}&id=${iframe.id}&childId=${iframe.id}&clientHeight=1`;
+
+        if(this.origin == "https://factgraphics.dpa-addons.com"){
+            Object.entries({
+                "app": "dpa-faktencheck",
+                "embedType": "iframe-dyn",
+                "id": iframe.id
+            }).forEach(([key, value]) => url.searchParams.set(key, value))
+        }else{
+            Object.entries({
+                id: iframe.id,
+                childId: iframe.id,
+                clientHeight: 1
+            }).forEach(([key, value]) => url.searchParams.set(key, value))
+        }
+        iframe.src = url.toString();
     }
 
     resize(postedMessage) {
